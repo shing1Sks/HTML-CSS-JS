@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Image Slider</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            height: 100vh;
+            width: 100vw;
+            background-color: rgb(250, 250, 22);
+        }
+        .imageCase{
+            height: 80vh;
+            width: 40vw;
+            background-color: yellow;
+            border-radius: 5%;
+            border: 2px rgb(150, 150, 2) solid;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 3px 3px 1px rgb(167, 167, 12);
+
+        }
+        .button{
+            width: 60px;
+            height: 50px;
+            color: white;
+            background-color: rgb(199, 232, 149);
+            border: 2px rgb(64, 150, 2) solid;
+            font-size: 40px;
+        }
+        .button:hover{
+            background-color: rgb(184, 204, 153);
+        }
+        .button:active{
+            background-color: rgb(127, 148, 97);
+        }
+        .previous{
+            position: absolute;
+            top: 34vh;
+            left:-15px;
+        }
+        .next{
+            position: absolute;
+            top: 34vh;
+            right: -15px;
+        }
+        img{
+            padding: 10%;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="imageCase">
+            <button class="previous button">&lt;</button>
+            <img src="./slider-resource/image1.jpg" alt="">
+            <button class="next button">&gt;</button>
+        </div>
+    </div>
+    
+
+    <script>
+        const images=[
+        "./slider-resource/image1.jpg",
+        "./slider-resource/image2.jpg",
+        "./slider-resource/image3.jpg",
+        "./slider-resource/image4.jpg"];
+        let index=0;
+        const previous=document.querySelector(".previous");
+        const next=document.querySelector(".next");
+        const img=document.querySelector("img");
+        previous.addEventListener("click",()=>roll(-1));
+        next.addEventListener("click",()=>roll(1));
+
+        function roll(i){
+            if (i==-1){
+                if(index==0){
+                    index=images.length-1;
+                }
+                else{ 
+                    index--;
+                }
+            }
+            else if(i==1){
+                if(index==3){
+                    index=0;
+                }
+                else{
+                    index++;
+                }
+            }
+            img.src=images[index];
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Counter</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: azure;
+        }
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            width: 300px;
+            flex-direction: column;
+            background-color: white;
+            box-shadow: 6px 6px 2px grey;
+            gap: 10px;
+            border-radius: 10%;
+        }
+        .header{
+            font-weight: bold;
+            font-size: 25px;
+            padding-bottom: 12px;
+            color: rgb(0, 255, 115);
+            text-shadow: 2px 2px 3px rgb(128, 165, 165);
+        }
+        .counter{
+            font-size: 40px;
+            color: black;
+            font-weight: bold;
+        }
+        .buttonsContainer{
+            display: flex;
+            padding-top: 10px;
+            flex-direction: row;
+            gap: 15px;
+        }
+        .buttons{
+            border: solid 2px;
+            border-radius: 20%;
+            height: 26px;
+            width: 50px;
+            color:rgb(0, 255, 115);
+        }
+        .buttons:hover{
+            background-color: rgb(125, 211, 164);
+            color: white;
+        }
+        .buttons:active{
+            background-color: rgb(92, 154, 120);    
+            color: white;      
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <p class="header">Counter By JS</p>
+        <p class="counter">0</p>
+        <div class="buttonsContainer">
+            <button class="lower buttons">Lower</button>
+            <button class="add buttons">Add</button>
+        </div>
+    </div>
+    <script>
+        const lower=document.querySelector(".lower");
+        const add=document.querySelector(".add");
+        const counter=document.querySelector(".counter");
+        let count=0;
+        lower.addEventListener("click",()=>{
+            count--;
+            counter.innerHTML=count;
+            if(count>0)
+            {counter.style.color="green";}
+            else if(count<0)
+            {counter.style.color="red";}
+            else{
+                counter.style.color="black";
+            }
+        });
+        add.addEventListener("click",()=>{
+            count++;
+            counter.innerHTML=count;
+            if(count>0)
+            {counter.style.color="green";}
+            else if(count<0)
+            {counter.style.color="red";}
+            else{
+                counter.style.color="black";
+            }
+        });
+        
+    </script>
+</body>
+</html>

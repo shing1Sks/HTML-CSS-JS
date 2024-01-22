@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changes Background Color On Click Of A Button</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div>
+      <button class="btn">Click to change</button>
+    </div>
+
+
+    <script>
+        const changeColor=()=>{
+            let r,g,b;
+            r=Math.random()*255;
+            g=Math.random()*255;
+            b=Math.random()*255;
+            document.querySelector("body").style.backgroundColor=`rgb(${r},${g},${b})`;
+        }
+
+        const btn=document.querySelector(".btn");
+        btn.addEventListener("click",changeColor);
+
+
+    </script>
+</body>
+</html>

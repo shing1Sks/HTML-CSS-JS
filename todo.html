@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        body{
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(to right,blue,purple);
+        }
+        .container{
+            display: flex;
+            align-items:start;
+            padding-left: 20px;
+            flex-direction: column;
+            background-color: white;
+            height: auto;
+            padding-bottom: 50px;
+            width: 400px;
+            border: 2px solid black;
+            gap: 10px;
+            border-radius: 10%/20%;
+        }
+        .header{
+            display: flex;
+            flex-direction: row;
+            position: relative;
+        }
+        .header p{
+            width: 200px;
+            font-weight: 600;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: 30px;
+            text-align: center ;
+            padding-top: 20px;
+        }
+        .imgWrapper{
+            width: 60px;
+            height: auto;
+            position: absolute;
+            right: -40px;
+            top: 10px;
+            padding-top: 18px;
+        }
+        .logo{
+            object-fit: contain;
+            width: 40px;
+        }
+        .textBoxWrapper{
+            position: relative;
+            padding-top: 10px;
+        }
+        .textBoxWrapper input{
+            border: none;
+            border-radius: 5%/50%;
+            background-color: rgb(210, 234, 232);
+            height: 15px;
+            width: 350px;
+            padding: 10px;
+        }
+        .textBoxWrapper input:focus{
+            border: none;
+            outline: none;
+        }
+        .textBoxWrapper button{
+            border-radius: 30%/50%;
+            position: absolute;
+            right: -5px;
+            top: 10px;
+            height: 35px;
+            width: 60px;
+            text-align: center;
+            background-color: rgb(255, 102, 60);
+            color: white;
+            border: none;
+        }
+        .textBoxWrapper button:hover{
+            background-color: rgb(228, 74, 32);
+        }
+        .textBoxWrapper button:active{
+            background-color: rgb(206, 70, 32);
+        }
+        .tasks div{
+            display: flex;
+            align-self: start;
+            flex-direction: row;
+            height: 24px;
+            width: 380px;
+            position: relative;
+            border-radius: 2%/50%;
+            border: 2px rgb(142, 139, 139) solid;
+        }
+        .tasks input{
+            border-radius:50%;
+            display: flex;
+            position: absolute;
+            left: 6px;
+            top: 4px;
+        }
+        .tasks button{
+            width: 16px;
+            height: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            object-fit: contain;
+            position: absolute;
+            right: 4px;
+            top: 3px;
+        }
+        .tasks p{
+            position: absolute;
+            left: 10px;
+            padding-left: 10px;
+        }
+        .tasks{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+        }
+        
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <p>To-Do List</p>
+            <div class="imgWrapper">
+                <img class="logo" src="./todo-resource/logo.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="textBoxWrapper">
+            <input type="text" name="" id="input" placeholder="Add your task">
+            <button>Add</button>
+        </div>
+
+        <div class="tasks">
+            <!-- JS generated -->
+        </div>
+    </div>
+    
+    <script>
+
+        const inputVal=document.querySelector("#input");
+        const inputBtn=document.querySelector("button");
+        const taskDisplay=document.querySelector(".tasks");
+
+        inputBtn.addEventListener("click",addTask);
+
+        let task=``;
+        let tasks=[];
+        let displayVal='';
+        let checkboxRetrieval=[];
+
+        function addTask(){
+            checkboxRetrieval=[];
+            for(let i=0;i<tasks.length;i++){
+                const check=document.querySelector(`#i${i}`);
+                if(check.checked){
+                    checkboxRetrieval.push(1);
+                }
+                else{
+                    checkboxRetrieval.push(0);
+                }
+            }
+            checkboxRetrieval.push(0);
+            task=inputVal.value;
+            tasks.push(task);
+            displayVal="";
+            tasks.forEach((element,index)=>{
+                displayVal+=`
+                <div>
+                <input type="checkbox" name="" id="i${index}">
+                <p id="p${index}">${element}</p>
+                <button id="b${index}">&#x274C;</button>
+                </div>
+            `;
+            });
+
+            taskDisplay.innerHTML=displayVal;
+
+            for (let i = 0; i < tasks.length; i++) {
+                const checkbox=document.querySelector(`#i${i}`);
+                const text=document.querySelector(`#p${i}`);
+                const btn=document.querySelector(`#b${i}`);
+
+                checkbox.addEventListener("click",()=>crossText(i,checkbox.checked));
+                btn.addEventListener("click",()=>removeTask(i));
+            }
+            for (let i = 0; i < checkboxRetrieval.length; i++) {
+            const checkbox=document.querySelector(`#i${i}`);
+                if(checkboxRetrieval[i]){
+                    crossText(i,true);
+                    checkbox.checked=true;
+                }
+            }
+
+        }
+
+        function crossText(index,checkbox){
+            if (checkbox){
+                const text=document.querySelector(`#p${index}`);
+                text.style.textDecoration="line-through";
+            }
+            else{
+                const text=document.querySelector(`#p${index}`);
+                text.style.textDecoration="none";
+            }
+        }
+
+        function removeTask(index){
+            checkboxRetrieval=[];
+            for(let i=0;i<tasks.length;i++){
+                const check=document.querySelector(`#i${i}`);
+                if(check.checked){
+                    checkboxRetrieval.push(1);
+                }
+                else{
+                    checkboxRetrieval.push(0);
+                }
+            }
+            checkboxRetrieval.splice(index,1);
+            tasks.splice(index,1);
+            displayVal="";
+            tasks.forEach((element,index)=>{
+                displayVal+=`
+                <div>
+                <input type="checkbox" name="" id="i${index}">
+                <p id="p${index}">${element }</p>
+                <button id="b${index}">&#x274C;</button>
+                </div>
+            `;
+            });
+
+            taskDisplay.innerHTML=displayVal;
+
+            for (let i = 0; i < tasks.length; i++) {
+                const checkbox=document.querySelector(`#i${i}`);
+                const text=document.querySelector(`#p${i}`);
+                const btn=document.querySelector(`#b${i}`);
+
+                checkbox.addEventListener("click",()=>crossText(i,checkbox.checked));
+                btn.addEventListener("click",()=>removeTask(i));
+            }
+            for (let i = 0; i < checkboxRetrieval.length; i++) {
+            const checkbox=document.querySelector(`#i${i}`);
+                if(checkboxRetrieval[i]){
+                    crossText(i,true);
+                    checkbox.checked=true;
+                }
+            }
+        }
+    
+    </script>
+</body>
+</html>

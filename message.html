@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        body{
+            background-color: lightblue;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 250px;
+            background-color: white;
+            border-radius: 10%;
+            row-gap: 24px;
+            padding: 15px;
+            box-shadow: 8px 8px 2px grey ;
+        }
+        .header{
+            font-size: 20px;
+            font-family:  Arial, sans-serif;
+        }
+        button{
+            background-color: lightblue;
+            border: none;
+            height: 40px;
+            width: 80px;
+            border-radius: 17%;
+        }
+        button:hover{
+            background-color: rgb(161, 199, 212);
+        }
+        button:active{
+            background-color: rgb(118, 144, 152);
+        }
+        input{
+            width: 200px;
+            height: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <div>
+        <p class="header">A message you would like to pass to the Browser!</p>
+        <input type="text" name="" id="input">
+        <button>Submit</button>
+        <p class="msgStatus"> Message will come here!</p>
+        <p class="output"></p>
+    </div>
+
+    <script>
+        const btn=document.querySelector("button");
+        btn.addEventListener("click",btnFunc);
+        document.addEventListener("keydown",(event)=>{if(event.key=='Enter'){btnFunc();}});  
+        const input =document.querySelector("input");
+        const out=document.querySelector(".output");
+        const msgStatus=document.querySelector(".msgStatus");
+
+        function btnFunc(){
+            if(input.value){
+            out.innerHTML=`${input.value}`;
+            input.value="";
+            msgStatus.innerHTML="Message received ;>"
+            }
+            else{
+                msgStatus.innerHTML="Message will come here!";
+                out.innerHTML="";
+            }
+        }
+    </script>
+</body>
+</html>
